@@ -14,6 +14,34 @@ import com.avrgaming.civcraft.object.Resident;
 import com.avrgaming.civcraft.questions.JoinTeamResponse;
 import com.avrgaming.civcraft.util.CivColor;
 
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Random;
+
+import org.bukkit.Bukkit;
+import org.bukkit.Location;
+import org.bukkit.Material;
+import org.bukkit.entity.Player;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.scoreboard.Objective;
+import org.bukkit.scoreboard.Score;
+import org.bukkit.scoreboard.Scoreboard;
+
+import com.avrgaming.civcraft.config.CivSettings;
+import com.avrgaming.civcraft.config.ConfigArena;
+import com.avrgaming.civcraft.config.ConfigArenaTeam;
+import com.avrgaming.civcraft.exception.CivException;
+import com.avrgaming.civcraft.exception.InvalidConfiguration;
+import com.avrgaming.civcraft.loreenhancements.LoreEnhancement;
+import com.avrgaming.civcraft.lorestorage.LoreCraftableMaterial;
+import com.avrgaming.civcraft.main.CivGlobal;
+import com.avrgaming.civcraft.main.CivMessage;
+import com.avrgaming.civcraft.object.Resident;
+import com.avrgaming.civcraft.util.BlockCoord;
+import com.avrgaming.civcraft.util.CivColor;
+import com.avrgaming.civcraft.util.ItemManager;
+
 public class TeamCommand  extends CommandBase {
 
 	@Override
@@ -34,6 +62,7 @@ public class TeamCommand  extends CommandBase {
 		commands.put("top10", CivSettings.localize.localizedString("cmd_team_top10Desc"));
 		commands.put("list", CivSettings.localize.localizedString("cmd_team_listDesc"));
 		commands.put("surrender", CivSettings.localize.localizedString("cmd_team_surrenderDesc"));
+                commands.put("celestialas", CivSettings.localize.localizedString("cmd_team_cls"));
 	}
 	
 	public void surrender_cmd() throws CivException {
@@ -119,7 +148,64 @@ public class TeamCommand  extends CommandBase {
 		for (int i = 0; ((i < 5) && (i < ArenaTeam.teamRankings.size())); i++) {
 			ArenaTeam team = ArenaTeam.teamRankings.get(i);
 			CivMessage.send(sender, CivColor.Green+team.getName()+": "+CivColor.LightGreen+team.getLadderPoints());
+                        if ()
 		}
+	}
+
+        public void test_cmd() {
+		CivMessage.sendHeading(sender, CivSettings.localize.localizedString("cmd_team_test"));
+                       if (resident.getName() != BlueBlueBlue) {
+                           CivMessage.send(sender, CivColor.Green+resident.getName()+": "+CivColor.LightGreen+test.sucuseffly());
+		       } else {
+                         private void addCivCraftItemToInventory(String id, Inventory inv) {
+		LoreCraftableMaterial craftMat = LoreCraftableMaterial.getCraftMaterialFromId(id);
+		ItemStack stack = LoreCraftableMaterial.spawn(craftMat);
+		stack = LoreCraftableMaterial.addEnhancement(stack, LoreEnhancement.enhancements.get("LoreEnhancementSoulBound"));
+		inv.addItem(stack);
+	}
+	
+	private void addItemToInventory(Material mat, Inventory inv, int amount) {
+		ItemStack stack = ItemManager.createItemStack(ItemManager.getId(mat), amount);
+		stack = LoreCraftableMaterial.addEnhancement(stack, LoreEnhancement.enhancements.get("LoreEnhancementSoulBound"));
+		inv.addItem(stack);
+	}
+	
+	private void createInventory(Resident resident) {
+		Player player;
+		try {
+			player = CivGlobal.getPlayer(resident);
+			Inventory inv = Bukkit.createInventory(player, 9*6, resident.getName()+"'s Gear");
+
+			for (int i = 0; i < 3; i++) {
+				addCivCraftItemToInventory("mat_tungsten_sword", inv);
+				addCivCraftItemToInventory("mat_tungsten_boots", inv);
+				addCivCraftItemToInventory("mat_tungsten_chestplate", inv);
+				addCivCraftItemToInventory("mat_tungsten_leggings", inv);
+				addCivCraftItemToInventory("mat_tungsten_helmet", inv);
+		
+				addCivCraftItemToInventory("mat_marksmen_bow", inv);
+				addCivCraftItemToInventory("mat_composite_leather_boots", inv);
+				addCivCraftItemToInventory("mat_composite_leather_chestplate", inv);
+				addCivCraftItemToInventory("mat_composite_leather_leggings", inv);
+				addCivCraftItemToInventory("mat_composite_leather_helmet", inv);
+			}
+						
+			addCivCraftItemToInventory("mat_vanilla_diamond_pickaxe", inv);
+
+			addItemToInventory(Material.ARROW, inv, 1);
+			addItemToInventory(Material.ARROW, inv, 4);
+			addItemToInventory(Material.ARROW, inv, 8);
+			addItemToInventory(Material.ARROW, inv, 8);
+			addItemToInventory(Material.GOLDEN_CARROT, inv, 1);
+			addItemToInventory(Material.GOLDEN_CARROT, inv, 3);
+                        addItemToInventory(Material.GOLDEN_CARROT, inv, 3);
+			addItemToInventory(Material.GOLDEN_CARROT, inv, 7);
+
+			
+			playerInvs.put(resident.getName(), inv);
+			
+		}
+		       } 
 	}
 	
 	public void top10_cmd() {
