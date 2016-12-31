@@ -62,7 +62,7 @@ public class TeamCommand  extends CommandBase {
 		commands.put("top10", CivSettings.localize.localizedString("cmd_team_top10Desc"));
 		commands.put("list", CivSettings.localize.localizedString("cmd_team_listDesc"));
 		commands.put("surrender", CivSettings.localize.localizedString("cmd_team_surrenderDesc"));
-                commands.put("celestialas", CivSettings.localize.localizedString("cmd_team_cls"));
+                commands.put("test", CivSettings.localize.localizedString("cmd_team_test"));
 	}
 	
 	public void surrender_cmd() throws CivException {
